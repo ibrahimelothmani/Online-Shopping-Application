@@ -1,5 +1,8 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
+### GET iphone_15
+GET http://localhost:8082/api/inventory?skuCode=iphone_15&quantity=100
 
-###
+### GET galaxy_24
+GET http://localhost:8082/api/inventory?skuCode=galaxy_24&quantity=100
+
+### GET ALL INVENTORY
+GET http://localhost:8082/api/inventory/all
