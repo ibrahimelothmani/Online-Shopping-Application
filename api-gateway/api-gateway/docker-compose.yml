@@ -1,0 +1,47 @@
+services:
+  postgres:
+    container_name: postgres-sql-gateway
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: gateway
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-gateway
+    restart: unless-stopped
+
+  keycloak:
+    container_name: keycloak-gateway
+    image: quay.io/keycloak/keycloak:26.1.0
+    environment:
+      KEYCLOAK_ADMIN: ibrahim
+      KEYCLOAK_ADMIN_PASSWORD: 2024
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres-sql-gateway
+      DB_DATABASE: gateway
+      DB_USER: postgres
+      DB_PASSWORD: root
+    ports:
+      - "9090:8080"
+    networks:
+      - spring-gateway
+    depends_on:
+      - postgres
+    command:
+      - "start-dev"
+    restart: unless-stopped
+
+networks:
+  spring-gateway:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+  keycloak:
+    driver: local

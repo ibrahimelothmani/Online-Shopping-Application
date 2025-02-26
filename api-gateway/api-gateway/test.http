@@ -1,0 +1,8 @@
+### GET product
+GET http://localhost:9000/api/product
+
+### GET order
+GET http://localhost:9000/api/order
+
+### GET Inventory
+GET http://localhost:9000/api/inventory
